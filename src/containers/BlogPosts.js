@@ -4,9 +4,9 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
 import config from "../config";
-import "./Notes.css";
+import "./BlogPosts.css";
 
-export default class Notes extends Component {
+export default class BlogPosts extends Component {
   constructor(props) {
     super(props);
 
@@ -15,7 +15,7 @@ export default class Notes extends Component {
     this.state = {
       isLoading: null,
       isDeleting: null,
-      note: null,
+      blogPost: null,
       content: "",
       attachmentURL: null
     };
@@ -24,15 +24,15 @@ export default class Notes extends Component {
   async componentDidMount() {
     try {
       let attachmentURL;
-      const note = await this.getNote();
-      const { content, attachment } = note;
+      const blogPost = await this.getBlogPost();
+      const { content, attachment } = blogPost;
 
       if (attachment) {
         attachmentURL = await Storage.vault.get(attachment);
       }
 
       this.setState({
-        note,
+        blogPost,
         content,
         attachmentURL
       });
@@ -41,18 +41,18 @@ export default class Notes extends Component {
     }
   }
 
-  getNote() {
-    return API.get("notes", `/notes/${this.props.match.params.id}`);
+  getBlogPost() {
+    return API.get("blogPosts", `/blogPosts/${this.props.match.params.id}`);
   }
 
-  saveNote(note) {
-    return API.put("notes", `/notes/${this.props.match.params.id}`, {
-      body: note
+  saveBlogPost(blogPost) {
+    return API.put("blogPosts", `/blogPosts/${this.props.match.params.id}`, {
+      body: blogPost
     });
   }
 
-  deleteNote() {
-    return API.del("notes", `/notes/${this.props.match.params.id}`);
+  deleteBlogPost() {
+    return API.del("blogPosts", `/blogPosts/${this.props.match.params.id}`);
   }
 
   validateForm() {
@@ -90,9 +90,9 @@ export default class Notes extends Component {
         attachment = await s3Upload(this.file);
       }
 
-      await this.saveNote({
+      await this.saveBlogPost({
         content: this.state.content,
-        attachment: attachment || this.state.note.attachment
+        attachment: attachment || this.state.blogPost.attachment
       });
       this.props.history.push("/");
     } catch (e) {
@@ -105,7 +105,7 @@ export default class Notes extends Component {
     event.preventDefault();
 
     const confirmed = window.confirm(
-      "Are you sure you want to delete this note?"
+      "Are you sure you want to delete this blog post?"
     );
 
     if (!confirmed) {
@@ -115,7 +115,7 @@ export default class Notes extends Component {
     this.setState({ isDeleting: true });
 
     try {
-      await this.deleteNote();
+      await this.deleteBlogPost();
       this.props.history.push("/");
     } catch (e) {
       alert(e);
@@ -125,8 +125,8 @@ export default class Notes extends Component {
 
   render() {
     return (
-      <div className="Notes">
-        {this.state.note &&
+      <div className="BlogPosts">
+        {this.state.blogPost &&
           <form onSubmit={this.handleSubmit}>
             <FormGroup controlId="content">
               <FormControl
@@ -135,7 +135,7 @@ export default class Notes extends Component {
                 componentClass="textarea"
               />
             </FormGroup>
-            {this.state.note.attachment &&
+            {this.state.blogPost.attachment &&
               <FormGroup>
                 <ControlLabel>Attachment</ControlLabel>
                 <FormControl.Static>
@@ -144,12 +144,12 @@ export default class Notes extends Component {
                     rel="noopener noreferrer"
                     href={this.state.attachmentURL}
                   >
-                    {this.formatFilename(this.state.note.attachment)}
+                    {this.formatFilename(this.state.blogPost.attachment)}
                   </a>
                 </FormControl.Static>
               </FormGroup>}
             <FormGroup controlId="file">
-              {!this.state.note.attachment &&
+              {!this.state.blogPost.attachment &&
                 <ControlLabel>Attachment</ControlLabel>}
               <FormControl onChange={this.handleFileChange} type="file" />
             </FormGroup>

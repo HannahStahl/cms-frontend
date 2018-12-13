@@ -1,5 +1,5 @@
 {
-  "name": "notes-app",
+  "name": "niccatterall-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,7 +16,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "predeploy": "npm run build",
-    "deploy": "aws s3 sync build/ s3://notes-app-client --delete",
+    "deploy": "aws s3 sync build/ s3://niccatterall-frontend --delete",
     "postdeploy": "aws cloudfront create-invalidation --distribution-id E1KTCKT9SOAHBW --paths '/*' && aws cloudfront create-invalidation --distribution-id E3MQXGQ47VCJB0 --paths '/*'",
     "eject": "react-scripts eject"
   },

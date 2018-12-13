@@ -4,9 +4,9 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
 import config from "../config";
-import "./NewNote.css";
+import "./NewBlogPost.css";
 
-export default class NewNote extends Component {
+export default class NewBlogPost extends Component {
   constructor(props) {
     super(props);
 
@@ -18,9 +18,9 @@ export default class NewNote extends Component {
     };
   }
 
-  createNote(note) {
-    return API.post("notes", "/notes", {
-      body: note
+  createBlogPost(blogPost) {
+    return API.post("blogPosts", "/blogPosts", {
+      body: blogPost
     });
   }
 
@@ -53,7 +53,7 @@ export default class NewNote extends Component {
         ? await s3Upload(this.file)
         : null;
 
-      await this.createNote({
+      await this.createBlogPost({
         attachment,
         content: this.state.content
       });
@@ -66,7 +66,7 @@ export default class NewNote extends Component {
 
   render() {
     return (
-      <div className="NewNote">
+      <div className="NewBlogPost">
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="content">
             <FormControl

@@ -11,7 +11,7 @@ export default class Home extends Component {
 
     this.state = {
       isLoading: true,
-      notes: []
+      blogPosts: []
     };
   }
 
@@ -21,8 +21,8 @@ export default class Home extends Component {
     }
 
     try {
-      const notes = await this.notes();
-      this.setState({ notes });
+      const blogPosts = await this.blogPosts();
+      this.setState({ blogPosts });
     } catch (e) {
       alert(e);
     }
@@ -30,29 +30,29 @@ export default class Home extends Component {
     this.setState({ isLoading: false });
   }
 
-  notes() {
-    return API.get("notes", "/notes");
+  blogPosts() {
+    return API.get("blogPosts", "/blogPosts");
   }
 
-  renderNotesList(notes) {
-    return [{}].concat(notes).map(
-      (note, i) =>
+  renderBlogPostsList(blogPosts) {
+    return [{}].concat(blogPosts).map(
+      (blogPost, i) =>
         i !== 0
           ? <LinkContainer
-              key={note.noteId}
-              to={`/notes/${note.noteId}`}
+              key={blogPost.blogPostId}
+              to={`/blogPosts/${blogPost.blogPostId}`}
             >
-              <ListGroupItem header={note.content.trim().split("\n")[0]}>
-                {"Created: " + new Date(note.createdAt).toLocaleString()}
+              <ListGroupItem header={blogPost.content.trim().split("\n")[0]}>
+                {"Created: " + new Date(blogPost.createdAt).toLocaleString()}
               </ListGroupItem>
             </LinkContainer>
           : <LinkContainer
               key="new"
-              to="/notes/new"
+              to="/blogPosts/new"
             >
               <ListGroupItem>
                 <h4>
-                  <b>{"\uFF0B"}</b> Create a new note
+                  <b>{"\uFF0B"}</b> Create a new blog post
                 </h4>
               </ListGroupItem>
             </LinkContainer>
@@ -62,8 +62,8 @@ export default class Home extends Component {
   renderLander() {
     return (
       <div className="lander">
-        <h1>Scratch</h1>
-        <p>A simple note taking app</p>
+        <h1>Blog Admin</h1>
+        <p>A simple blog posting CMS</p>
         <div>
           <Link to="/login" className="btn btn-info btn-lg">
             Login
@@ -76,12 +76,12 @@ export default class Home extends Component {
     );
   }
 
-  renderNotes() {
+  renderBlogPosts() {
     return (
-      <div className="notes">
-        <PageHeader>Your Notes</PageHeader>
+      <div className="blogPosts">
+        <PageHeader>Your Blog Posts</PageHeader>
         <ListGroup>
-          {!this.state.isLoading && this.renderNotesList(this.state.notes)}
+          {!this.state.isLoading && this.renderBlogPostsList(this.state.blogPosts)}
         </ListGroup>
       </div>
     );
@@ -90,7 +90,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="Home">
-        {this.props.isAuthenticated ? this.renderNotes() : this.renderLander()}
+        {this.props.isAuthenticated ? this.renderBlogPosts() : this.renderLander()}
       </div>
     );
   }
