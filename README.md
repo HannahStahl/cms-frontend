@@ -1,1 +1,1 @@
-Frontend for www.niccatterall.com
+Frontend for simplecms.netlify.com
