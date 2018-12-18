@@ -4,5 +4,13 @@
 
 .NewBlogPost form textarea {
   height: 300px;
-  font-size: 24px;
+  font-size: 16px;
+}
+
+.NewBlogPost .form-group {
+  margin-bottom: 30px;
+}
+
+.NewBlogPost .image-form-group {
+  margin-bottom: 0px;
 }

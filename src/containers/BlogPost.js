@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { API, Storage } from "aws-amplify";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Image, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
 import config from "../config";
@@ -138,6 +138,18 @@ export default class BlogPost extends Component {
       <div className="BlogPost">
         {this.state.blogPost &&
           <form onSubmit={this.handleSubmit}>
+            {this.state.blogPost.image &&
+              <FormGroup className="image-form-group">
+                <ControlLabel>Image</ControlLabel>
+                <FormControl.Static>
+                  <Image src={this.state.imageURL} responsive />
+                </FormControl.Static>
+              </FormGroup>}
+            <FormGroup controlId="file">
+              {!this.state.blogPost.image &&
+                <ControlLabel>Image</ControlLabel>}
+              <FormControl onChange={this.handleFileChange} type="file" />
+            </FormGroup>
             <FormGroup controlId="title">
               <ControlLabel>Title</ControlLabel>
               <FormControl
@@ -153,24 +165,6 @@ export default class BlogPost extends Component {
                 value={this.state.content}
                 componentClass="textarea"
               />
-            </FormGroup>
-            {this.state.blogPost.image &&
-              <FormGroup>
-                <ControlLabel>Image</ControlLabel>
-                <FormControl.Static>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={this.state.imageURL}
-                  >
-                    {this.formatFilename(this.state.blogPost.image)}
-                  </a>
-                </FormControl.Static>
-              </FormGroup>}
-            <FormGroup controlId="file">
-              {!this.state.blogPost.image &&
-                <ControlLabel>Image</ControlLabel>}
-              <FormControl onChange={this.handleFileChange} type="file" />
             </FormGroup>
             <LoaderButton
               block

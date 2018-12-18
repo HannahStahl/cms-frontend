@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { API } from "aws-amplify";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Image, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
 import config from "../config";
@@ -77,6 +77,10 @@ export default class NewBlogPost extends Component {
     return (
       <div className="NewBlogPost">
         <form onSubmit={this.handleSubmit}>
+          <FormGroup controlId="file">
+            <ControlLabel>Image</ControlLabel>
+            <FormControl onChange={this.handleFileChange} type="file" />
+          </FormGroup>
           <FormGroup controlId="title">
             <ControlLabel>Title</ControlLabel>
             <FormControl
@@ -92,10 +96,6 @@ export default class NewBlogPost extends Component {
               value={this.state.content}
               componentClass="textarea"
             />
-          </FormGroup>
-          <FormGroup controlId="file">
-            <ControlLabel>Image</ControlLabel>
-            <FormControl onChange={this.handleFileChange} type="file" />
           </FormGroup>
           <LoaderButton
             block
