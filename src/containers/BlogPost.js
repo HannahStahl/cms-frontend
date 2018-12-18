@@ -4,9 +4,9 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
 import config from "../config";
-import "./BlogPosts.css";
+import "./BlogPost.css";
 
-export default class BlogPosts extends Component {
+export default class BlogPost extends Component {
   constructor(props) {
     super(props);
 
@@ -135,7 +135,7 @@ export default class BlogPosts extends Component {
 
   render() {
     return (
-      <div className="BlogPosts">
+      <div className="BlogPost">
         {this.state.blogPost &&
           <form onSubmit={this.handleSubmit}>
             <FormGroup controlId="title">
