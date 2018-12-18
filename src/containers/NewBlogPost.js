@@ -50,12 +50,12 @@ export default class NewBlogPost extends Component {
     this.setState({ isLoading: true });
 
     try {
-      const attachment = this.file
+      const image = this.file
         ? await s3Upload(this.file)
         : null;
 
       await this.createBlogPost({
-        attachment,
+        image,
         title: this.state.title,
         content: this.state.content
       });
@@ -87,7 +87,7 @@ export default class NewBlogPost extends Component {
             />
           </FormGroup>
           <FormGroup controlId="file">
-            <ControlLabel>Attachment</ControlLabel>
+            <ControlLabel>Image</ControlLabel>
             <FormControl onChange={this.handleFileChange} type="file" />
           </FormGroup>
           <LoaderButton

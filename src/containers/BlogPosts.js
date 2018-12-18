@@ -18,25 +18,25 @@ export default class BlogPosts extends Component {
       blogPost: null,
       title: "",
       content: "",
-      attachmentURL: null
+      imageURL: null
     };
   }
 
   async componentDidMount() {
     try {
-      let attachmentURL;
+      let imageURL;
       const blogPost = await this.getBlogPost();
-      const { title, content, attachment } = blogPost;
+      const { title, content, image } = blogPost;
 
-      if (attachment) {
-        attachmentURL = await Storage.vault.get(attachment);
+      if (image) {
+        imageURL = await Storage.vault.get(image);
       }
 
       this.setState({
         blogPost,
         title,
         content,
-        attachmentURL
+        imageURL
       });
     } catch (e) {
       alert(e);
@@ -76,7 +76,7 @@ export default class BlogPosts extends Component {
   }
 
   handleSubmit = async event => {
-    let attachment;
+    let image;
 
     event.preventDefault();
 
@@ -89,13 +89,13 @@ export default class BlogPosts extends Component {
 
     try {
       if (this.file) {
-        attachment = await s3Upload(this.file);
+        image = await s3Upload(this.file);
       }
 
       await this.saveBlogPost({
         title: this.state.title,
         content: this.state.content,
-        attachment: attachment || this.state.blogPost.attachment
+        image: image || this.state.blogPost.image
       });
       this.props.history.push("/");
     } catch (e) {
@@ -147,22 +147,22 @@ export default class BlogPosts extends Component {
                 componentClass="textarea"
               />
             </FormGroup>
-            {this.state.blogPost.attachment &&
+            {this.state.blogPost.image &&
               <FormGroup>
-                <ControlLabel>Attachment</ControlLabel>
+                <ControlLabel>Image</ControlLabel>
                 <FormControl.Static>
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={this.state.attachmentURL}
+                    href={this.state.imageURL}
                   >
-                    {this.formatFilename(this.state.blogPost.attachment)}
+                    {this.formatFilename(this.state.blogPost.image)}
                   </a>
                 </FormControl.Static>
               </FormGroup>}
             <FormGroup controlId="file">
-              {!this.state.blogPost.attachment &&
-                <ControlLabel>Attachment</ControlLabel>}
+              {!this.state.blogPost.image &&
+                <ControlLabel>Image</ControlLabel>}
               <FormControl onChange={this.handleFileChange} type="file" />
             </FormGroup>
             <LoaderButton
