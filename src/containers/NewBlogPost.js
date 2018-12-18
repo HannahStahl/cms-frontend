@@ -14,6 +14,7 @@ export default class NewBlogPost extends Component {
 
     this.state = {
       isLoading: null,
+      title: "",
       content: ""
     };
   }
@@ -25,7 +26,7 @@ export default class NewBlogPost extends Component {
   }
 
   validateForm() {
-    return this.state.content.length > 0;
+    return this.state.title.length > 0 && this.state.content.length > 0;
   }
 
   handleChange = event => {
@@ -55,6 +56,7 @@ export default class NewBlogPost extends Component {
 
       await this.createBlogPost({
         attachment,
+        title: this.state.title,
         content: this.state.content
       });
       this.props.history.push("/");
@@ -68,7 +70,16 @@ export default class NewBlogPost extends Component {
     return (
       <div className="NewBlogPost">
         <form onSubmit={this.handleSubmit}>
+          <FormGroup controlId="title">
+            <ControlLabel>Title</ControlLabel>
+            <FormControl
+              onChange={this.handleChange}
+              value={this.state.title}
+              type="text"
+            />
+          </FormGroup>
           <FormGroup controlId="content">
+            <ControlLabel>Content</ControlLabel>
             <FormControl
               onChange={this.handleChange}
               value={this.state.content}

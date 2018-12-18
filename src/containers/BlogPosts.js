@@ -16,6 +16,7 @@ export default class BlogPosts extends Component {
       isLoading: null,
       isDeleting: null,
       blogPost: null,
+      title: "",
       content: "",
       attachmentURL: null
     };
@@ -25,7 +26,7 @@ export default class BlogPosts extends Component {
     try {
       let attachmentURL;
       const blogPost = await this.getBlogPost();
-      const { content, attachment } = blogPost;
+      const { title, content, attachment } = blogPost;
 
       if (attachment) {
         attachmentURL = await Storage.vault.get(attachment);
@@ -33,6 +34,7 @@ export default class BlogPosts extends Component {
 
       this.setState({
         blogPost,
+        title,
         content,
         attachmentURL
       });
@@ -56,7 +58,7 @@ export default class BlogPosts extends Component {
   }
 
   validateForm() {
-    return this.state.content.length > 0;
+    return this.state.title.length > 0 && this.state.content.length > 0;
   }
 
   formatFilename(str) {
@@ -91,6 +93,7 @@ export default class BlogPosts extends Component {
       }
 
       await this.saveBlogPost({
+        title: this.state.title,
         content: this.state.content,
         attachment: attachment || this.state.blogPost.attachment
       });
@@ -128,7 +131,16 @@ export default class BlogPosts extends Component {
       <div className="BlogPosts">
         {this.state.blogPost &&
           <form onSubmit={this.handleSubmit}>
+            <FormGroup controlId="title">
+              <ControlLabel>Title</ControlLabel>
+              <FormControl
+                onChange={this.handleChange}
+                value={this.state.title}
+                type="text"
+              />
+            </FormGroup>
             <FormGroup controlId="content">
+              <ControlLabel>Content</ControlLabel>
               <FormControl
                 onChange={this.handleChange}
                 value={this.state.content}

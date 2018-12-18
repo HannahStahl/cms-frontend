@@ -42,7 +42,8 @@ export default class Home extends Component {
               key={blogPost.blogPostId}
               to={`/blogPosts/${blogPost.blogPostId}`}
             >
-              <ListGroupItem header={blogPost.content.trim().split("\n")[0]}>
+              <ListGroupItem header={blogPost.title}>
+                <h4>{blogPost.content.trim().split("\n")[0]}</h4>
                 {"Created: " + new Date(blogPost.createdAt).toLocaleString()}
               </ListGroupItem>
             </LinkContainer>
