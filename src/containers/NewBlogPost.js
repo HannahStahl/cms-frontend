@@ -42,9 +42,16 @@ export default class NewBlogPost extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
-    if (this.file && this.file.size > config.MAX_ATTACHMENT_SIZE) {
-      alert(`Please pick a file smaller than ${config.MAX_ATTACHMENT_SIZE/1000000} MB.`);
-      return;
+    if (this.file) {
+      if (this.file.size > config.MAX_ATTACHMENT_SIZE) {
+        alert(`Please pick a file smaller than ${config.MAX_ATTACHMENT_SIZE/1000000} MB.`);
+        return;
+      }
+      var fileExtension = this.file.name.toLowerCase().split('.')[1];
+      if (!["jpg", "jpeg", "png", "gif"].includes(fileExtension)) {
+        alert(`Please pick an image file.`);
+        return;
+      }
     }
 
     this.setState({ isLoading: true });
