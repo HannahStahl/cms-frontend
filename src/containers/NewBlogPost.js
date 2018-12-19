@@ -53,6 +53,9 @@ export default class NewBlogPost extends Component {
         alert(`Please pick an image file.`);
         return;
       }
+    } else {
+      alert(`Please upload an image.`);
+      return;
     }
 
     this.setState({ isPublishing: true });
@@ -89,6 +92,9 @@ export default class NewBlogPost extends Component {
         alert(`Please pick an image file.`);
         return;
       }
+    } else {
+      alert(`Please upload an image.`);
+      return;
     }
 
     this.setState({ isSavingDraft: true });
