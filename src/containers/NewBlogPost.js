@@ -108,8 +108,7 @@ export default class NewBlogPost extends Component {
         image,
         title: this.state.title,
         content: this.state.content,
-        blogPostState: "Draft",
-        publishedDate: ""
+        blogPostState: "Draft"
       });
       this.props.history.push("/");
     } catch (e) {
