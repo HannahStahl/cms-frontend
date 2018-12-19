@@ -64,7 +64,8 @@ export default class NewBlogPost extends Component {
       await this.createBlogPost({
         image,
         title: this.state.title,
-        content: this.state.content
+        content: this.state.content,
+        blogPostState: "Published"
       });
       this.props.history.push("/");
     } catch (e) {
@@ -104,8 +105,8 @@ export default class NewBlogPost extends Component {
             disabled={!this.validateForm()}
             type="submit"
             isLoading={this.state.isLoading}
-            text="Create"
-            loadingText="Creating…"
+            text="Publish"
+            loadingText="Publishing..."
           />
         </form>
       </div>

@@ -18,6 +18,7 @@ export default class BlogPost extends Component {
       blogPost: null,
       title: "",
       content: "",
+      blogPostState: "",
       imageURL: null
     };
   }
@@ -26,7 +27,7 @@ export default class BlogPost extends Component {
     try {
       let imageURL;
       const blogPost = await this.getBlogPost();
-      const { title, content, image } = blogPost;
+      const { title, content, image, blogPostState } = blogPost;
 
       if (image) {
         imageURL = await Storage.vault.get(image);
@@ -36,6 +37,7 @@ export default class BlogPost extends Component {
         blogPost,
         title,
         content,
+        blogPostState,
         imageURL
       });
     } catch (e) {
@@ -47,7 +49,7 @@ export default class BlogPost extends Component {
     return API.get("blogPosts", `/blogPosts/${this.props.match.params.id}`);
   }
 
-  saveBlogPost(blogPost) {
+  publishBlogPost(blogPost) {
     return API.put("blogPosts", `/blogPosts/${this.props.match.params.id}`, {
       body: blogPost
     });
@@ -99,10 +101,11 @@ export default class BlogPost extends Component {
         image = await s3Upload(this.file);
       }
 
-      await this.saveBlogPost({
+      await this.publishBlogPost({
         title: this.state.title,
         content: this.state.content,
-        image: image || this.state.blogPost.image
+        image: image || this.state.blogPost.image,
+        blogPostState: "Published"
       });
       this.props.history.push("/");
     } catch (e) {
@@ -173,8 +176,8 @@ export default class BlogPost extends Component {
               disabled={!this.validateForm()}
               type="submit"
               isLoading={this.state.isLoading}
-              text="Save"
-              loadingText="Saving…"
+              text="Update"
+              loadingText="Updating..."
             />
             <LoaderButton
               block
