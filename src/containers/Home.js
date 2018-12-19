@@ -45,7 +45,7 @@ export default class Home extends Component {
               <ListGroupItem header={blogPost.title}>
                 {blogPost.content.trim().split("\n")[0]}
                 <br/><br/>
-                {"Published: " + new Date(blogPost.createdAt).toLocaleString()}
+                {blogPost.blogPostState === "Published" ? "Published: " + new Date(blogPost.createdAt).toLocaleString() : "Draft"}
               </ListGroupItem>
             </LinkContainer>
           : <LinkContainer
