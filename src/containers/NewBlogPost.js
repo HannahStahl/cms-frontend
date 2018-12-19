@@ -13,7 +13,8 @@ export default class NewBlogPost extends Component {
     this.file = null;
 
     this.state = {
-      isLoading: null,
+      isPublishing: null,
+      isSavingDraft: null,
       title: "",
       content: ""
     };
@@ -39,7 +40,7 @@ export default class NewBlogPost extends Component {
     this.file = event.target.files[0];
   }
 
-  handleSubmit = async event => {
+  handlePublish = async event => {
     event.preventDefault();
 
     if (this.file) {
@@ -54,7 +55,7 @@ export default class NewBlogPost extends Component {
       }
     }
 
-    this.setState({ isLoading: true });
+    this.setState({ isPublishing: true });
 
     try {
       const image = this.file
@@ -70,14 +71,49 @@ export default class NewBlogPost extends Component {
       this.props.history.push("/");
     } catch (e) {
       alert(e);
-      this.setState({ isLoading: false });
+      this.setState({ isPublishing: false });
+    }
+  }
+
+  handleSaveDraft = async event => {
+    event.preventDefault();
+
+    if (this.file) {
+      if (this.file.size > config.MAX_ATTACHMENT_SIZE) {
+        alert(`Please pick a file smaller than ${config.MAX_ATTACHMENT_SIZE/1000000} MB.`);
+        return;
+      }
+      var fileExtension = this.file.name.toLowerCase().split('.')[1];
+      if (!["jpg", "jpeg", "png", "gif"].includes(fileExtension)) {
+        alert(`Please pick an image file.`);
+        return;
+      }
+    }
+
+    this.setState({ isSavingDraft: true });
+
+    try {
+      const image = this.file
+        ? await s3Upload(this.file)
+        : null;
+
+      await this.createBlogPost({
+        image,
+        title: this.state.title,
+        content: this.state.content,
+        blogPostState: "Draft"
+      });
+      this.props.history.push("/");
+    } catch (e) {
+      alert(e);
+      this.setState({ isSavingDraft: false });
     }
   }
 
   render() {
     return (
       <div className="NewBlogPost">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handlePublish}>
           <FormGroup controlId="file">
             <ControlLabel>Image</ControlLabel>
             <FormControl onChange={this.handleFileChange} type="file" />
@@ -99,12 +135,22 @@ export default class NewBlogPost extends Component {
             />
           </FormGroup>
           <LoaderButton
+              block
+              bsStyle="warning"
+              bsSize="large"
+              disabled={!this.validateForm()}
+              onClick={this.handleSaveDraft}
+              isLoading={this.state.isSavingDraft}
+              text="Save Draft"
+              loadingText="Saving Draft..."
+            />
+          <LoaderButton
             block
             bsStyle="primary"
             bsSize="large"
             disabled={!this.validateForm()}
             type="submit"
-            isLoading={this.state.isLoading}
+            isLoading={this.state.isPublishing}
             text="Publish"
             loadingText="Publishing..."
           />
