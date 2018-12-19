@@ -4,6 +4,7 @@ import { Image, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
 import config from "../config";
+import TextEditor from './TextEditor';
 import "./BlogPost.css";
 
 export default class BlogPost extends Component {
@@ -70,9 +71,15 @@ export default class BlogPost extends Component {
     return str.replace(/^\w+-/, "");
   }
 
-  handleChange = event => {
+  handleTitleChange = event => {
     this.setState({
-      [event.target.id]: event.target.value
+      title: event.target.value
+    });
+  }
+
+  handleContentChange = event => {
+    this.setState({
+      content: event
     });
   }
 
@@ -198,17 +205,16 @@ export default class BlogPost extends Component {
             <FormGroup controlId="title">
               <ControlLabel>Title</ControlLabel>
               <FormControl
-                onChange={this.handleChange}
+                onChange={this.handleTitleChange}
                 value={this.state.title}
                 type="text"
               />
             </FormGroup>
             <FormGroup controlId="content">
               <ControlLabel>Content</ControlLabel>
-              <FormControl
-                onChange={this.handleChange}
-                value={this.state.content}
-                componentClass="textarea"
+              <TextEditor
+                onChange={this.handleContentChange}
+                startingValue={this.state.content}
               />
             </FormGroup>
             <LoaderButton

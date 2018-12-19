@@ -5,6 +5,7 @@ import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
 import config from "../config";
 import "./NewBlogPost.css";
+import TextEditor from './TextEditor';
 
 export default class NewBlogPost extends Component {
   constructor(props) {
@@ -30,9 +31,15 @@ export default class NewBlogPost extends Component {
     return this.state.title.length > 0 && this.state.content.length > 0;
   }
 
-  handleChange = event => {
+  handleTitleChange = event => {
     this.setState({
-      [event.target.id]: event.target.value
+      title: event.target.value
+    });
+  }
+
+  handleContentChange = event => {
+    this.setState({
+      content: event
     });
   }
 
@@ -128,17 +135,16 @@ export default class NewBlogPost extends Component {
           <FormGroup controlId="title">
             <ControlLabel>Title</ControlLabel>
             <FormControl
-              onChange={this.handleChange}
+              onChange={this.handleTitleChange}
               value={this.state.title}
               type="text"
             />
           </FormGroup>
           <FormGroup controlId="content">
             <ControlLabel>Content</ControlLabel>
-            <FormControl
-              onChange={this.handleChange}
-              value={this.state.content}
-              componentClass="textarea"
+            <TextEditor
+              onChange={this.handleContentChange}
+              startingValue={this.state.content}
             />
           </FormGroup>
           <LoaderButton
