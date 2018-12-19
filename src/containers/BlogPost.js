@@ -20,6 +20,7 @@ export default class BlogPost extends Component {
       title: "",
       content: "",
       blogPostState: "",
+      publishedDate: "",
       imageURL: null
     };
   }
@@ -28,7 +29,7 @@ export default class BlogPost extends Component {
     try {
       let imageURL;
       const blogPost = await this.getBlogPost();
-      const { title, content, image, blogPostState } = blogPost;
+      const { title, content, image, blogPostState, publishedDate } = blogPost;
 
       if (image) {
         imageURL = await Storage.vault.get(image);
@@ -39,6 +40,7 @@ export default class BlogPost extends Component {
         title,
         content,
         blogPostState,
+        publishedDate,
         imageURL
       });
     } catch (e) {
@@ -106,7 +108,8 @@ export default class BlogPost extends Component {
         title: this.state.title,
         content: this.state.content,
         image: image || this.state.blogPost.image,
-        blogPostState: "Published"
+        blogPostState: "Published",
+        publishedDate: this.state.publishedDate || (new Date()).toLocaleString()
       });
       this.props.history.push("/");
     } catch (e) {
@@ -143,7 +146,8 @@ export default class BlogPost extends Component {
         title: this.state.title,
         content: this.state.content,
         image: image || this.state.blogPost.image,
-        blogPostState: "Draft"
+        blogPostState: "Draft",
+        publishedDate: ""
       });
       this.props.history.push("/");
     } catch (e) {

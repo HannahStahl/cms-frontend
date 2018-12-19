@@ -66,7 +66,8 @@ export default class NewBlogPost extends Component {
         image,
         title: this.state.title,
         content: this.state.content,
-        blogPostState: "Published"
+        blogPostState: "Published",
+        publishedDate: this.state.publishedDate || (new Date()).toLocaleString()
       });
       this.props.history.push("/");
     } catch (e) {
@@ -101,7 +102,8 @@ export default class NewBlogPost extends Component {
         image,
         title: this.state.title,
         content: this.state.content,
-        blogPostState: "Draft"
+        blogPostState: "Draft",
+        publishedDate: ""
       });
       this.props.history.push("/");
     } catch (e) {
