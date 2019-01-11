@@ -84,6 +84,7 @@ export default class BlogPost extends Component {
 
   handleFileChange = event => {
     this.file = event.target.files[0];
+    this.setState({ imageURL: URL.createObjectURL(this.file) });
   }
 
   handlePublish = async event => {
@@ -184,7 +185,7 @@ export default class BlogPost extends Component {
       <div className="BlogPost">
         {this.state.blogPost &&
           <form onSubmit={this.handlePublish}>
-            {this.state.blogPost.image &&
+            {this.state.imageURL &&
               <FormGroup className="image-form-group">
                 <ControlLabel>Image</ControlLabel>
                 <FormControl.Static>

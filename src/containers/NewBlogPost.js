@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { API } from "aws-amplify";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Image, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
 import "./NewBlogPost.css";
@@ -16,7 +16,8 @@ export default class NewBlogPost extends Component {
       isPublishing: null,
       isSavingDraft: null,
       title: "",
-      content: ""
+      content: "",
+      imageURL: null
     };
   }
 
@@ -44,6 +45,7 @@ export default class NewBlogPost extends Component {
 
   handleFileChange = event => {
     this.file = event.target.files[0];
+    this.setState({ imageURL: URL.createObjectURL(this.file) });
   }
 
   handlePublish = async event => {
@@ -116,8 +118,16 @@ export default class NewBlogPost extends Component {
     return (
       <div className="NewBlogPost">
         <form onSubmit={this.handlePublish}>
+          {this.state.imageURL &&
+            <FormGroup className="image-form-group">
+              <ControlLabel>Image</ControlLabel>
+              <FormControl.Static>
+                <Image src={this.state.imageURL} responsive />
+              </FormControl.Static>
+            </FormGroup>}
           <FormGroup controlId="file">
-            <ControlLabel>Image</ControlLabel>
+            {!this.state.imageURL &&
+              <ControlLabel>Image</ControlLabel>}
             <FormControl onChange={this.handleFileChange} type="file" />
           </FormGroup>
           <FormGroup controlId="title">
