@@ -42,7 +42,10 @@ export default class Home extends Component {
               key={blogPost.blogPostId}
               to={`/blogPosts/${blogPost.blogPostId}`}
             >
-              <ListGroupItem header={blogPost.title}>
+              <ListGroupItem
+                header={blogPost.title}
+                className={blogPost.blogPostState === "Published" ? "published" : "draft"}
+              >
                 {blogPost.blogPostState === "Published" ? "Published: " + blogPost.publishedDate : "Draft"}
               </ListGroupItem>
             </LinkContainer>

@@ -32,5 +32,17 @@
   text-overflow: ellipsis;
 }
 .Home .blogPosts p {
-  color: #666;
+  color: white;
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.published p {
+  background-color: #6caae0;
+}
+
+.draft p {
+  background-color: #e0a756;
 }
