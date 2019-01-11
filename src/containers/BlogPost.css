@@ -14,3 +14,7 @@
 .BlogPost .image-form-group {
   margin-bottom: 0px;
 }
+
+.BlogPost .form-control-static img {
+  max-width: 70%;
+}
