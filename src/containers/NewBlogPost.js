@@ -51,10 +51,6 @@ export default class NewBlogPost extends Component {
     event.preventDefault();
 
     if (this.file) {
-      if (this.file.size > config.MAX_ATTACHMENT_SIZE) {
-        alert(`Please pick a file smaller than ${config.MAX_ATTACHMENT_SIZE/1000000} MB.`);
-        return;
-      }
       var fileExtension = this.file.name.toLowerCase().split('.')[1];
       if (!["jpg", "jpeg", "png", "gif"].includes(fileExtension)) {
         alert(`Please pick an image file.`);
@@ -90,18 +86,11 @@ export default class NewBlogPost extends Component {
     event.preventDefault();
 
     if (this.file) {
-      if (this.file.size > config.MAX_ATTACHMENT_SIZE) {
-        alert(`Please pick a file smaller than ${config.MAX_ATTACHMENT_SIZE/1000000} MB.`);
-        return;
-      }
       var fileExtension = this.file.name.toLowerCase().split('.')[1];
       if (!["jpg", "jpeg", "png", "gif"].includes(fileExtension)) {
         alert(`Please pick an image file.`);
         return;
       }
-    } else {
-      alert(`Please upload an image.`);
-      return;
     }
 
     this.setState({ isSavingDraft: true });
