@@ -3,7 +3,6 @@ import { API } from "aws-amplify";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
-import config from "../config";
 import "./NewBlogPost.css";
 import TextEditor from './TextEditor';
 

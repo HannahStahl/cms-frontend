@@ -3,7 +3,6 @@ import { API, Storage } from "aws-amplify";
 import { Image, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
-import config from "../config";
 import TextEditor from './TextEditor';
 import "./BlogPost.css";
 
@@ -98,7 +97,7 @@ export default class BlogPost extends Component {
         alert(`Please pick an image file.`);
         return;
       }
-    } else {
+    } else if (!this.state.imageURL) {
       alert(`Please upload an image.`);
       return;
     }
