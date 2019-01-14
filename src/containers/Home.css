@@ -54,3 +54,17 @@
 .draft p {
   background-color: #e0a756;
 }
+
+.blog-post-image {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.blog-post-image img {
+  object-fit: cover;
+}
+
+.blog-post-content-preview {
+  display: inline-block;
+  vertical-align: middle;
+}

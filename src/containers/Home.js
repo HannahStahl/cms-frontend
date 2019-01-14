@@ -45,8 +45,13 @@ export default class Home extends Component {
               <ListGroupItem
                 className={blogPost.blogPostState === "Published" ? "published" : "draft"}
               >
-                <h4 className="blog-post-title">{blogPost.title}</h4>
-                <p>{blogPost.blogPostState === "Published" ? "Published: " + blogPost.publishedDate : "Draft"}</p>
+                <div className="blog-post-image">
+                  <img src={require("./cat.jpeg")} width="100px" height="100px" alt="Cat" />
+                </div>
+                <div className="blog-post-content-preview">
+                  <h4 className="blog-post-title">{blogPost.title}</h4>
+                  <p>{blogPost.blogPostState === "Published" ? "Published: " + blogPost.publishedDate : "Draft"}</p>
+                </div>
               </ListGroupItem>
             </LinkContainer>
           : <LinkContainer
