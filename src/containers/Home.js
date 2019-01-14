@@ -3,6 +3,7 @@ import { API } from "aws-amplify";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import BlogPostPreview from "./BlogPostPreview";
 import "./Home.css";
 
 export default class Home extends Component {
@@ -45,13 +46,7 @@ export default class Home extends Component {
               <ListGroupItem
                 className={blogPost.blogPostState === "Published" ? "published" : "draft"}
               >
-                <div className="blog-post-image">
-                  <img src={require("./cat.jpeg")} width="100px" height="100px" alt="Cat" />
-                </div>
-                <div className="blog-post-content-preview">
-                  <h4 className="blog-post-title">{blogPost.title}</h4>
-                  <p>{blogPost.blogPostState === "Published" ? "Published: " + blogPost.publishedDate : "Draft"}</p>
-                </div>
+                <BlogPostPreview blogPost={blogPost} />
               </ListGroupItem>
             </LinkContainer>
           : <LinkContainer
