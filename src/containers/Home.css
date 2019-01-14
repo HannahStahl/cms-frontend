@@ -15,6 +15,7 @@
 .Home .lander div {
   padding-top: 20px;
 }
+
 .Home .lander div a:first-child {
   margin-right: 20px;
 }
@@ -31,13 +32,19 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 .Home .blogPosts p {
   color: white;
   display: inline-block;
   padding: 5px 10px 5px 10px;
-  margin: 5px 0px 5px 0px;
+  margin: 0px 0px 5px 0px;
   border-radius: 20px;
   font-size: 14px;
+}
+
+.blog-post-title {
+  color: #333;
+  margin-top: 0px;
 }
 
 .published p {
