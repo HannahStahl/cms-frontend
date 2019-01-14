@@ -18,6 +18,8 @@ export default class BlogPostPreview extends Component {
 
       if (image) {
         imageURL = await Storage.vault.get(image);
+      } else {
+        imageURL = "no-image.jpg";
       }
 
       this.setState({ imageURL });
