@@ -30,7 +30,7 @@ export default class BlogPostPreview extends Component {
     return (
       <div>
         <div className="blog-post-image">
-          <img src={this.state.imageURL} width="100px" height="100px" alt="Blog Img" />
+          <img src={this.state.imageURL} width="120px" height="100px" alt="Blog Img" />
         </div>
         <div className="blog-post-content-preview">
           <h4 className="blog-post-title">{this.props.blogPost.title}</h4>
