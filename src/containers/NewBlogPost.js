@@ -21,6 +21,10 @@ export default class NewBlogPost extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.leaveHomePage();
+  }
+
   createBlogPost(blogPost) {
     return API.post("blogPosts", "/blogPosts", {
       body: blogPost

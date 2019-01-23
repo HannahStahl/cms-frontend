@@ -26,6 +26,8 @@ export default class BlogPost extends Component {
   }
 
   async componentDidMount() {
+    this.props.leaveHomePage();
+
     try {
       let imageURL;
       const blogPost = await this.getBlogPost();

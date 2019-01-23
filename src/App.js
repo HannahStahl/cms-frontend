@@ -12,7 +12,8 @@ class App extends Component {
 
     this.state = {
       isAuthenticated: false,
-      isAuthenticating: true
+      isAuthenticating: true,
+      isOnHomePage: true
     };
   }
 
@@ -42,20 +43,31 @@ class App extends Component {
     this.props.history.push("/login");
   }
 
+  leaveHomePage = () => {
+    this.setState({ isOnHomePage: false });
+  }
+
+  reenterHomePage = () => {
+    this.setState({ isOnHomePage: true });
+  }
+
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      leaveHomePage: this.leaveHomePage,
+      reenterHomePage: this.reenterHomePage
     };
+    const backButton = "< Cancel";
 
     return (
       !this.state.isAuthenticating &&
       <div className="App container">
         <Navbar fluid collapseOnSelect>
           <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/">Home</Link>
-            </Navbar.Brand>
+            {!this.state.isOnHomePage && <Navbar.Brand>
+              <Link to="/" className="back-button">{backButton}</Link>
+            </Navbar.Brand>}
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>

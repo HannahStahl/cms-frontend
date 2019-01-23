@@ -17,6 +17,8 @@ export default class Home extends Component {
   }
 
   async componentDidMount() {
+    this.props.reenterHomePage();
+
     if (!this.props.isAuthenticated) {
       return;
     }
