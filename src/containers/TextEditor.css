@@ -1,4 +1,7 @@
 .public-DraftEditor-content {
   min-height: 300px;
+}
+
+.public-DraftEditor-content * {
   font-family: "Open Sans", sans-serif;
 }
