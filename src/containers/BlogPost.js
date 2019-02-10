@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { API, Storage } from "aws-amplify";
+import { API } from "aws-amplify";
 import { Image, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
 import TextEditor from './TextEditor';
 import "./BlogPost.css";
+import config from "../config";
 
 export default class BlogPost extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ export default class BlogPost extends Component {
       const { title, content, image, blogPostState, publishedDate } = blogPost;
 
       if (image) {
-        imageURL = await Storage.vault.get(image);
+        imageURL = config.cloudFront.URL + image;
       }
 
       this.setState({

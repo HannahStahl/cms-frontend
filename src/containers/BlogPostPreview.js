@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Storage } from "aws-amplify";
 import "./BlogPostPreview.css";
+import config from "../config";
 
 export default class BlogPostPreview extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ export default class BlogPostPreview extends Component {
       const { image } = this.props.blogPost;
 
       if (image) {
-        imageURL = await Storage.vault.get(image);
+        imageURL = config.cloudFront.URL + image;
       } else {
         imageURL = "no-image.jpg";
       }

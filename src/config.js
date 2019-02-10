@@ -12,6 +12,9 @@ const dev = {
     USER_POOL_ID: "us-east-1_AMUlYb0nI",
     APP_CLIENT_ID: "5nraug0l98dkdmva25ui1qvc7j",
     IDENTITY_POOL_ID: "us-east-1:91b45bfc-2b86-4db2-8da2-5ca11eda967a"
+  },
+  cloudFront: {
+    URL: "https://d3fy6r09yakf45.cloudfront.net/"
   }
 };
 
@@ -29,6 +32,9 @@ const prod = {
     USER_POOL_ID: "us-east-1_TxFV8deDA",
     APP_CLIENT_ID: "4akk0238pvoiu6l0cqeb73cfvt",
     IDENTITY_POOL_ID: "us-east-1:b3bf1039-a69d-40d7-a239-a59c53040e4e"
+  },
+  cloudFront: {
+    URL: "https://d284k0k8nv2x8f.cloudfront.net/"
   }
 };
 
