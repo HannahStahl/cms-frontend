@@ -1,20 +1,20 @@
 const dev = {
   s3: {
     REGION: "us-east-1",
-    BUCKET: "cms-backend-dev-attachmentsbucket-qg2q7724hcy"
+    BUCKET: "cms-backend-dev-attachmentsbucket-mg9wvqe6tx0h"
   },
   apiGateway: {
     REGION: "us-east-1",
-    URL: "https://heguftgbx3.execute-api.us-east-1.amazonaws.com/dev"
+    URL: "https://8erdut5qvk.execute-api.us-east-1.amazonaws.com/dev"
   },
   cognito: {
     REGION: "us-east-1",
-    USER_POOL_ID: "us-east-1_AMUlYb0nI",
-    APP_CLIENT_ID: "5nraug0l98dkdmva25ui1qvc7j",
-    IDENTITY_POOL_ID: "us-east-1:91b45bfc-2b86-4db2-8da2-5ca11eda967a"
+    USER_POOL_ID: "us-east-1_7uoELZHSx",
+    APP_CLIENT_ID: "101giu3h5st2t1ajh7uav7riig",
+    IDENTITY_POOL_ID: "us-east-1:0d829204-451b-46c8-9551-484eef562ec1"
   },
   cloudFront: {
-    URL: "https://d3fy6r09yakf45.cloudfront.net/"
+    URL: "https://d1nwz5yvxuozj1.cloudfront.net/"
   }
 };
 
