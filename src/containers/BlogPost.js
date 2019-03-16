@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { API } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import { Image, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
@@ -30,12 +30,13 @@ export default class BlogPost extends Component {
     this.props.leaveHomePage();
 
     try {
+      const userInfo = await Auth.currentUserInfo();
       let imageURL;
       const blogPost = await this.getBlogPost();
       const { title, content, image, blogPostState, publishedDate } = blogPost;
 
       if (image) {
-        imageURL = config.cloudFront.URL + image;
+        imageURL = config.cloudFront.URL + userInfo.id + "/" + image;
       }
 
       this.setState({

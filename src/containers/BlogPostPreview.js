@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Auth } from "aws-amplify";
 import "./BlogPostPreview.css";
 import config from "../config";
 
@@ -13,11 +14,12 @@ export default class BlogPostPreview extends Component {
 
   async componentDidMount() {
     try {
+      const userInfo = await Auth.currentUserInfo();
       let imageURL;
       const { image } = this.props.blogPost;
 
       if (image) {
-        imageURL = config.cloudFront.URL + image;
+        imageURL = config.cloudFront.URL + userInfo.id + "/" + image;
       } else {
         imageURL = "no-image.jpg";
       }

@@ -14,7 +14,7 @@ const dev = {
     IDENTITY_POOL_ID: "us-east-1:0d829204-451b-46c8-9551-484eef562ec1"
   },
   cloudFront: {
-    URL: "https://d1nwz5yvxuozj1.cloudfront.net/"
+    URL: "https://dxn9yihku1qhz.cloudfront.net/"
   }
 };
 
@@ -34,7 +34,7 @@ const prod = {
     IDENTITY_POOL_ID: "us-east-1:732a891f-52ce-49a0-99fa-45eeab936b27"
   },
   cloudFront: {
-    URL: "https://d1fl3q441qbwnx.cloudfront.net/"
+    URL: "https://d35vb5x3tpvhxr.cloudfront.net/"
   }
 };
 
